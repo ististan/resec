@@ -15,13 +15,15 @@ func NewConnection(m *cli.Context) (*Manager, error) {
 		Address: m.String("redis-addr"),
 	}
 
+
+
 	instance := &Manager{
 		client: redis.NewClient(&redis.Options{
 			Addr:         redisConfig.Address,
-			DialTimeout:  1 * time.Second,
 			Password:     m.String("redis-password"),
-			ReadTimeout:  1 * time.Second,
-			WriteTimeout: 1 * time.Second,
+			DialTimeout:  m.Duration("redis-connect-timeout"),
+			ReadTimeout:  m.Duration("redis-read-timeout"),
+			WriteTimeout: m.Duration("redis-write-timeout"),
 		}),
 		config: redisConfig,
 		logger: log.WithFields(log.Fields{

@@ -115,6 +115,21 @@ func main() {
 			Usage:  "Password for the Redis server",
 			EnvVar: "REDIS_PASSWORD",
 		},
+		cli.DurationFlag{
+			Name:   "redis-connect-timeout",
+			Value:  1 * time.Second,
+			EnvVar: "REDIS_CONNECT_TIMEOUT",
+		},
+		cli.DurationFlag{
+			Name:   "redis-read-timeout",
+			Value:  1 * time.Second,
+			EnvVar: "REDIS_READ_TIMEOUT",
+		},
+		cli.DurationFlag{
+			Name:   "redis-write-timeout",
+			Value:  1 * time.Second,
+			EnvVar: "REDIS_WRITE_TIMEOUT",
+		},
 	}
 	app.Before = func(c *cli.Context) error {
 		level, err := log.ParseLevel(c.String("log-level"))
